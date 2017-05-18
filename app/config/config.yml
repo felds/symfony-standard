@@ -6,6 +6,8 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    env(SMTP_HOST): smtp.example.com
+    env(SMTP_ENCRYPTION): tls
     locale: en
 
 framework:
@@ -63,7 +65,8 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
-    host: '%mailer_host%'
+    host: '%env(SMTP_HOST)%'
+    encryption: '%env(SMTP_ENCRYPTION)%'
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
